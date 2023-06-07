@@ -113,8 +113,7 @@
 //     );
 //   }
 // }
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -129,7 +128,7 @@ const ImageFetcher = ({ URL, API_KEY, query, page, handleLoadMore }) => {
   const [status, setStatus] = useState('idle');
   const [totalHits, setTotalHits] = useState(null);
 
-  const fetchImg = async () => {
+  const fetchImg = useCallback(async () => {
     try {
       const response = await fetch(
         `${URL}?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
@@ -158,7 +157,7 @@ const ImageFetcher = ({ URL, API_KEY, query, page, handleLoadMore }) => {
       setError(error);
       setStatus('rejected');
     }
-  };
+  }, [URL, API_KEY, query, page]);
 
   useEffect(() => {
     if (query && page === 1) {
@@ -166,7 +165,7 @@ const ImageFetcher = ({ URL, API_KEY, query, page, handleLoadMore }) => {
     }
     setStatus('pending');
     fetchImg();
-  }, [query, page]);
+  }, [query, page, fetchImg]);
 
   return (
     <>
