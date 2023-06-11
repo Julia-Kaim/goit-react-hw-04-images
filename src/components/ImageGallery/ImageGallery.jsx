@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 
@@ -10,14 +10,17 @@ const ImageGallery = ({ images }) => {
   const [showModal, setShowModal] = useState(false);
   const [bigPic, setBigPic] = useState(null);
 
-  const handleClick = e => {
-    if (e.target.nodeName !== 'IMG') {
-      setShowModal(false);
-    } else {
-      const picture = images.find(obj => obj.id === parseInt(e.target.alt));
-      setBigPic(picture.largeImageURL);
-    }
-  };
+  const handleClick = useCallback(
+    e => {
+      if (e.target.nodeName !== 'IMG') {
+        setShowModal(false);
+      } else {
+        const picture = images.find(obj => obj.id === parseInt(e.target.alt));
+        setBigPic(picture.largeImageURL);
+      }
+    },
+    [images]
+  );
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState.showModal);
