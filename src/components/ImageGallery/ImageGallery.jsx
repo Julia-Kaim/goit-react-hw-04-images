@@ -10,13 +10,6 @@ const ImageGallery = ({ images }) => {
   const [showModal, setShowModal] = useState(false);
   const [bigPic, setBigPic] = useState(null);
 
-  useEffect(() => {
-    document.addEventListener('click', handleClick);
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, []);
-
   const handleClick = e => {
     if (e.target.nodeName !== 'IMG') {
       setShowModal(false);
@@ -29,6 +22,13 @@ const ImageGallery = ({ images }) => {
   const toggleModal = () => {
     setShowModal(prevState => !prevState.showModal);
   };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [handleClick]);
 
   return (
     <>

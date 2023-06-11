@@ -9,7 +9,6 @@ import Loader from '../Loader/Loader';
 
 const ImageFetcher = ({ URL, API_KEY, query, page, handleLoadMore }) => {
   const [pictures, setPictures] = useState([]);
-  const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
   const [totalHits, setTotalHits] = useState(null);
 
@@ -39,7 +38,6 @@ const ImageFetcher = ({ URL, API_KEY, query, page, handleLoadMore }) => {
         throw new Error('Failed to find any images');
       }
     } catch (error) {
-      setError(error);
       setStatus('rejected');
     }
   }, [URL, API_KEY, query, page]);
