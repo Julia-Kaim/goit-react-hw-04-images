@@ -60,8 +60,9 @@ const ImageFetcher = ({ URL, API_KEY, query, page, handleLoadMore }) => {
 };
 
 const PixabayApi = () => {
-  const [URL] = useState('https://pixabay.com/api/');
-  const [API_KEY] = useState('34856693-e3065cdefd04353a1725658fc');
+  const URL = 'https://pixabay.com/api/';
+  const API_KEY = '34856693-e3065cdefd04353a1725658fc';
+
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
 
